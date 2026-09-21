@@ -2,13 +2,21 @@
 interface Props {
   src: string
   alt: string
+  size?: "sm" | "md" | "lg" | "full"
 }
 
-const { src, alt } = Astro.props
+const { src, alt, size = "md" } = Astro.props
+
+const sizes = {
+  sm: "max-h-72",
+  md: "max-h-96",
+  lg: "max-h-128",
+  full: "max-h-none",
+}
 ---
 
 <figure>
-  <img src={src} alt={alt} data-lightbox />
+  <img src={src} alt={alt} class:list={["mx-auto w-auto", sizes[size]]} data-lightbox />
   <figcaption class="mt-2 text-center text-sm *:text-muted-foreground!">
     <slot />
   </figcaption>
